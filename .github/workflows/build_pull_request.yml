@@ -12,7 +12,6 @@ permissions:
 jobs:
   release:
     name: Build
-    if: github.repository_owner == 'anddea'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -31,3 +30,9 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: ./gradlew build --no-daemon
+
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v6
+        with:
+          name: patches
+          path: patches/build/libs
